@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beans_name: MyString
+  purchase_date: 2022-06-17
+  beans_origin: MyString
+  coffee_aroma: 1
+  bitter_taste: 1
+  coffee_acidity: 1
+  price_yen: 1
+  beans_comment: MyString
+
+two:
+  beans_name: MyString
+  purchase_date: 2022-06-17
+  beans_origin: MyString
+  coffee_aroma: 1
+  bitter_taste: 1
+  coffee_acidity: 1
+  price_yen: 1
+  beans_comment: MyString
