@@ -11,6 +11,7 @@
     <p>コメント: {{ coffee_bean.beans_comment }}</p>
 
     <router-link to="/coffee_beans">Back</router-link>
+    <router-link :to="{ name: 'edit-coffee-bean', params: coffee_bean.id }">edit</router-link>
   </div>
 </template>
 
