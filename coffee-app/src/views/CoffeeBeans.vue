@@ -14,8 +14,8 @@
           <tr v-for="coffee_bean in coffee_beans" :key="coffee_bean.id">
             <td>{{ coffee_bean.purchase_date }}</td>
             <td>{{ coffee_bean.beans_name }}</td>
-            <td>show</td>
-            <td>Edit</td>
+            <td><router-link :to="{name: 'show-coffee-bean', params: {id:coffee_bean.id}}">show</router-link></td>
+            <td><router-link :to="{ name: 'edit-coffee-bean', params: {id: coffee_bean.id}}">edit</router-link></td>
             <td>Destroy</td>
           </tr>
         </table>
