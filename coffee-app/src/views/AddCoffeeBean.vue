@@ -59,6 +59,13 @@ export default {
     async onSubmit() {
       if (this.$refs.checkForm.validate()){
         const coffee_bean = await this.$store.dispatch('addCoffeeBean', this.coffee_bean)
+        this.$store.commit('setMessage', {
+          status: true,
+          message: 'CoffeeBeansContent was successfully created.'
+        })
+        setTimeout(() => {
+          this.$store.commit('setMessage', {})
+        },2000)
         this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id}}) 
       }
     }

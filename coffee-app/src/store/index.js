@@ -6,7 +6,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    coffee_beans: []
+    coffee_beans: [],
+    flash_message:{
+      status: false,
+      message: ''
+    },
   },
   mutations: {
     FETCH_BEANS(state, coffee_beans){
@@ -26,6 +30,9 @@ export default new Vuex.Store({
     DELETE_COFFEE_BEAN(state, coffeeBeanId) {
       const coffee_beans = state.coffee_beans.filter(c => c.id != coffeeBeanId)
       state.coffee_beans = coffee_beans
+    },
+    setMessage(state, payload) {
+      state.flash_message = payload
     }
   },
   actions: {
