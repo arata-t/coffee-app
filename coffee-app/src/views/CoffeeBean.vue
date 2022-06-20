@@ -22,7 +22,7 @@ export default {
   computed: {
     ...mapState(['coffee_beans']), // ②
     coffee_bean() { // ③
-      return this.coffee_beans.find(coffee_beanId => coffee_beanId.id === this.$route.params.id) || {}
+      return this.coffee_beans.find(coffeeBeanId => coffeeBeanId.id === this.$route.params.id) || {}
     }
   }
 }
