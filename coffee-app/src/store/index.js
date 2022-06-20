@@ -16,13 +16,16 @@ export default new Vuex.Store({
       const coffee_beans = state.coffee_beans.concat(coffee_bean)
       state.coffee_beans = coffee_beans
     },
-
     EDIT_COFFEE_BEAN(state, coffee_bean){
       state.coffee_beans.forEach(c => {
         if (c.id === coffee_bean.id) {
           c = coffee_bean
         }
       })
+    },
+    DELETE_COFFEE_BEAN(state, coffeeBeanId) {
+      const coffee_beans = state.coffee_beans.filter(c => c.id != coffeeBeanId)
+      state.coffee_beans = coffee_beans
     }
   },
   actions: {
@@ -44,6 +47,11 @@ export default new Vuex.Store({
       const editedCoffeeBean = res.data
       commit('EDIT_COFFEE_BEAN', editedCoffeeBean)
       return editedCoffeeBean
+    },
+    async deleteCoffeeBean({ commit }, coffee_bean) {
+      await axios().delete(`/coffee_beans/${coffee_bean.id}`, coffee_bean)
+      commit('DELETE_COFFEE_BEAN', coffee_bean.id)
+      
     }
   },
 })

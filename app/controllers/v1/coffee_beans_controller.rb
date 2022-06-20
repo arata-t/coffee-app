@@ -30,6 +30,7 @@ class V1::CoffeeBeansController < ApplicationController
   private
   def bean_params
     params.require(:coffee_bean).permit(
+      :id,
       :beans_name, 
       :purchase_date, 
       :beans_origin, 
@@ -37,7 +38,9 @@ class V1::CoffeeBeansController < ApplicationController
       :bitter_taste, 
       :coffee_acidity, 
       :price_yen, 
-      :beans_comment
+      :beans_comment,
+      :created_at,
+      :updated_at
     )
   end
 end

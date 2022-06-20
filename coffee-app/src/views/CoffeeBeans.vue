@@ -16,7 +16,7 @@
             <td>{{ coffee_bean.beans_name }}</td>
             <td><router-link :to="{name: 'show-coffee-bean', params: {id:coffee_bean.id}}">show</router-link></td>
             <td><router-link :to="{ name: 'edit-coffee-bean', params: {id: coffee_bean.id}}">edit</router-link></td>
-            <td>Destroy</td>
+            <td><span class="button_link" @click="deleteCoffeeBean(coffee_bean)">[ delete ]</span></td>
           </tr>
         </table>
       </v-col>
@@ -46,6 +46,9 @@ export default {
         const coffee_bean = await this.$store.dispatch('addCoffeeBean', this.coffee_bean) // 変更
         // 定したルーティング先のページに飛ぶ
         this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id }}) // 追記
+      },
+      deleteCoffeeBean(coffee_bean) {
+        this.$store.dispatch('deleteCoffeeBean', coffee_bean)
       }
     },
 }
