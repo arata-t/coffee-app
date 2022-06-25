@@ -2,9 +2,19 @@
   <div>
     <Flash />
     <h1>Coffee Beans</h1>
+    <button type="button" @click="openModal" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">NEW Coffee Bean</button>
     <v-row>
       <v-col cols="4">
-        <AddCoffeeBean />
+        <transition name="modal">
+          <div v-show="modal">
+            <!-- オーバーレイフィルター:クリックするとモーダルが閉じる -->
+            <div class="fullOverlay" @click="closeModal">
+            </div>
+            <div class="window">
+              <AddCoffeeBean />
+            </div>  
+          </div>
+        </transition>
       </v-col>
       <v-col cols="8">
         <table>
@@ -16,8 +26,6 @@
             <td>{{ coffee_bean.purchase_date }}</td>
             <td>{{ coffee_bean.beans_name }}</td>
             <td><router-link :to="{name: 'show-coffee-bean', params: {id:coffee_bean.id}}">[ show ]</router-link></td>
-            <td><router-link :to="{ name: 'edit-coffee-bean', params: {id: coffee_bean.id}}">[ edit ]</router-link></td>
-            <td><span class="button_link" @click="deleteCoffeeBean(coffee_bean)">[ delete ]</span></td>
           </tr>
         </table>
       </v-col>
@@ -42,6 +50,7 @@ export default {
     data() {
         return {
             coffee_bean: {},
+            modal: false,
         };
     },
     methods: {
@@ -50,16 +59,46 @@ export default {
         // 定したルーティング先のページに飛ぶ
         this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id }}) // 追記
       },
-      deleteCoffeeBean(coffee_bean) {
-        this.$store.dispatch('deleteCoffeeBean', coffee_bean)
-        this.$store.commit('setMessage', {
-          status: true,
-          message: 'CoffeeBeansContent was successfully destroyed.'
-        })
-        setTimeout(() => {
-        this.$store.commit('setMessage', {})
-      }, 2000)
-      }
+      openModal(){
+        this.modal = true
+      },
+      closeModal(){
+        this.modal = false
+      },
     },
+
 }
 </script> 
+
+<style scoped lang="stylus">
+.fullOverlay{
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+/* オーバーレイのトランザクション */
+.modal-enter-active, .modal-leave-active {
+  transition: opacity 0.4s;
+
+  // オーバーレイに包含されているモーダルウィンドウのトランジション
+  .modal-window {
+    transition: opacity 0.4s, transform 0.4s;
+  }
+}
+
+// ディレイを付けるとモーダルウィンドウが消えた後にオーバーレイが消える
+.modal-leave-active {
+  transition: opacity 0.6s;
+}
+
+.modal-enter, .modal-leave-to {
+  opacity: 0;
+
+  .modal-window {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+</style>

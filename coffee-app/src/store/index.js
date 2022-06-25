@@ -58,7 +58,6 @@ export default new Vuex.Store({
     async deleteCoffeeBean({ commit }, coffee_bean) {
       await axios().delete(`/coffee_beans/${coffee_bean.id}`, coffee_bean)
       commit('DELETE_COFFEE_BEAN', coffee_bean.id)
-      
     }
   },
 })
