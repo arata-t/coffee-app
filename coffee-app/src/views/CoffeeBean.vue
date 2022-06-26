@@ -13,17 +13,33 @@
 
     <router-link to="/coffee_beans">[Back]</router-link>
     <span> ｜ </span>
-    <router-link :to="{ name: 'edit-coffee-bean', params: coffee_bean.id }">[edit]</router-link>
+    <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Edit Coffee Bean</button>
     <span> ｜ </span>
     <span class="button_link" @click="deleteCoffeeBean(coffee_bean)">[ delete ]</span>
+
+    <transition name="modal">
+      <div v-show="modal">
+        <div class="fullOverlay" @click="closeModal"></div>
+        <div class="window">
+          <EditCoffeeBean @emit='modal = $event' />
+        </div>
+      </div>
+    </transition>
+  
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Flash from '@/components/FlashComp.vue' // ①
+import Flash from '@/components/FlashComp.vue'
+import EditCoffeeBean from './EditCoffeeBean';
 
 export default {
+  data(){
+    return {
+      modal: false,
+    }
+  },
   methods:{
     deleteCoffeeBean(coffee_bean) {
       this.$store.dispatch('deleteCoffeeBean', coffee_bean)
@@ -36,31 +52,22 @@ export default {
       }, 2000)
       this.$router.push({ name: 'coffee_beans'})
     },
-  },
-    computed: {
-        ...mapState(["coffee_beans"]),
-        coffee_bean() {
-            return this.coffee_beans.find(coffeeBeanId => coffeeBeanId.id === this.$route.params.id) || {};
-        }
+    openModal(){
+      this.modal = true
     },
-    components: { Flash }
+    closeModal(){
+      this.modal = false
+    }
+  },
+  computed: {
+      ...mapState(["coffee_beans"]),
+      coffee_bean() {
+          return this.coffee_beans.find(coffeeBeanId => coffeeBeanId.id === this.$route.params.id) || {};
+      }
+  },
+  components: {
+    EditCoffeeBean,
+    Flash,
+  },
 }
 </script>
-
-<style>
-.window {
-  background:#f5f5f5;
-  position: absolute;
-  width: 50%;
-  min-width: 360px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-  padding: 20px 10px;
-  border-radius: 10px;
-  border: solid #707070;
-  overflow: hidden;
-  z-index: 2;
-}
-
-</style>

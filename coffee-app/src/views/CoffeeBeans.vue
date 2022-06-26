@@ -70,7 +70,23 @@ export default {
 }
 </script> 
 
-<style scoped lang="stylus">
+<style lang="stylus">
+/* モーダル */
+.window {
+  background:#f5f5f5;
+  position: absolute;
+  width: 50%;
+  min-width: 360px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  padding: 20px 10px;
+  border-radius: 10px;
+  border: solid #707070;
+  overflow: hidden;
+  z-index: 2;
+}
+/* オーバーレイ*/
 .fullOverlay{
   position: absolute;
   left: 0; top: 0;

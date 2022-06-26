@@ -44,6 +44,11 @@
 import { mapState } from 'vuex'
 
 export default {
+  data: function(){
+    return {
+      modal: false
+    };
+  },
   computed: {
     ...mapState(['coffee_beans']),
     coffee_bean() {
@@ -52,8 +57,9 @@ export default {
   },
   methods: {
     async updateCoffeeBean() {
-      const coffee_bean = await this.$store.dispatch('editCoffeeBean', this.coffee_bean) 
-      this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id }})
+      await this.$store.dispatch('editCoffeeBean', this.coffee_bean) 
+      // 親のmodalにfalseを付与して、モーダルを閉じる
+      this.$emit("emit", this.modal)
     }
   }
 }
