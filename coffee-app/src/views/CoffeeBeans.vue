@@ -2,7 +2,7 @@
   <div>
     <Flash />
     <h1>Coffee Beans</h1>
-    <button type="button" @click="openModal" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">NEW Coffee Bean</button>
+    <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Add CoffeeBean</button>
     <v-row>
       <v-col cols="4">
         <transition name="modal">

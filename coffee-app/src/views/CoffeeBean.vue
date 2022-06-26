@@ -1,6 +1,9 @@
 <template>
   <div>
     <Flash />
+    <div>
+        <router-link to="/coffee_beans" style="float  : left;">[Back]</router-link>
+    </div>
     <p>名前: {{ coffee_bean.beans_name }}</p>
     <p>購入日: {{ coffee_bean.purchase_date }}</p>
     <p>産地: {{ coffee_bean.beans_origin }}</p>
@@ -11,11 +14,9 @@
     <p>値段: {{ coffee_bean.price_yen }}</p>
     <p>コメント: {{ coffee_bean.beans_comment }}</p>
 
-    <router-link to="/coffee_beans">[Back]</router-link>
-    <span> ｜ </span>
     <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Edit Coffee Bean</button>
     <span> ｜ </span>
-    <span class="button_link" @click="deleteCoffeeBean(coffee_bean)">[ delete ]</span>
+    <button type="button" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default" @click="deleteCoffeeBean(coffee_bean)">delete</button>
 
     <transition name="modal">
       <div v-show="modal">
