@@ -2,7 +2,7 @@
   <div>
     <Flash />
     <h1>Coffee Beans</h1>
-    <button type="button" @click="openModal" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">NEW Coffee Bean</button>
+    <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Add CoffeeBean</button>
     <v-row>
       <v-col cols="4">
         <transition name="modal">
@@ -70,7 +70,23 @@ export default {
 }
 </script> 
 
-<style scoped lang="stylus">
+<style lang="stylus">
+/* モーダル */
+.window {
+  background:#f5f5f5;
+  position: absolute;
+  width: 50%;
+  min-width: 360px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  padding: 20px 10px;
+  border-radius: 10px;
+  border: solid #707070;
+  overflow: hidden;
+  z-index: 2;
+}
+/* オーバーレイ*/
 .fullOverlay{
   position: absolute;
   left: 0; top: 0;
