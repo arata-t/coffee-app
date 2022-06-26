@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Editing CoffeeBean</h2>
-    <form>
+    <v-form  ref="checkForm">
       <v-text-field
           v-model="coffee_bean.beans_name"
           label="名前"
@@ -42,7 +42,7 @@
         ></v-textarea>
 
       <v-btn class="mr-4" @click="onUpdate">Update</v-btn>
-    </form>
+    </v-form>
   </div>
 </template>
 
@@ -53,8 +53,9 @@ export default {
   data: function(){
     return {
       modal: false,
+      // バリデーションの設定
       required(propertyType) { 
-        return v => v && v.length > 0 || `You must input a ${propertyType}`
+        return v => (v && v.length > 0 || (v>=1 && v<=5)) || `You must input a ${propertyType}`
       }
     };
   },
@@ -66,9 +67,11 @@ export default {
   },
   methods: {
     async onUpdate() {
-      await this.$store.dispatch('editCoffeeBean', this.coffee_bean)
-      // 親のmodalにfalseを付与して、モーダルを閉じる
-      this.$emit("emit", this.modal)
+      if (this.$refs.checkForm.validate()) {
+        await this.$store.dispatch('editCoffeeBean', this.coffee_bean)
+        // 親のmodalにfalseを付与して、モーダルを閉じる
+        this.$emit("emit", this.modal)
+      }
     },
   }
 }

@@ -58,6 +58,7 @@ export default {
     },
     closeModal(){
       this.modal = false,
+      // 枠外を選択した際はデータベースから値を取得し、データバインドを更新する
       this.$store.dispatch('fetchBeans')
     }
   },
