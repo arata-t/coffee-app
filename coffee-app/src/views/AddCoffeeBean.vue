@@ -33,12 +33,10 @@
         <v-text-field
           v-model="coffee_bean.price_yen"
           label="値段"  
-          :rules="[required('Price(¥)')]"
         ></v-text-field>
         <v-textarea
           v-model="coffee_bean.beans_comment"
           label="コメント"
-          :rules="[required('comment')]"
         ></v-textarea>
 
         <v-btn class="mr-4" @click="onSubmit">Create</v-btn>

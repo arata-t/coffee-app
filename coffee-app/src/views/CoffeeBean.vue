@@ -21,6 +21,7 @@
       <div v-show="modal">
         <div class="fullOverlay" @click="closeModal"></div>
         <div class="window">
+          <!-- 子で'$emit'した値を'$event'で受け取る -->
           <EditCoffeeBean @emit='modal = $event' />
         </div>
       </div>
@@ -56,7 +57,8 @@ export default {
       this.modal = true
     },
     closeModal(){
-      this.modal = false
+      this.modal = false,
+      this.$store.dispatch('fetchBeans')
     }
   },
   computed: {
