@@ -121,4 +121,9 @@ export default {
 .v-textarea textarea {
   height: 96px;
 }
+
+.v-application--wrap{
+  min-height: auto;
+  background:#f5f5f5;
+}
 </style>
