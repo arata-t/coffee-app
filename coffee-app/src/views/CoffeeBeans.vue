@@ -43,7 +43,7 @@ export default {
     components: {
     AddCoffeeBean,
     Flash
-},
+    },
     computed: {
         ...mapState(["coffee_beans"])
     },
@@ -116,5 +116,9 @@ export default {
     opacity: 0;
     transform: translateY(-20px);
   }
+}
+
+.v-textarea textarea {
+  height: 96px;
 }
 </style>

@@ -4,6 +4,8 @@
     <div>
         <router-link to="/coffee_beans" style="float  : left;">[Back]</router-link>
     </div>
+    <br>
+    <p>番号: {{ coffee_bean.coffee_id }}</p>
     <p>名前: {{ coffee_bean.beans_name }}</p>
     <p>購入日: {{ coffee_bean.purchase_date }}</p>
     <p>産地: {{ coffee_bean.beans_origin }}</p>
