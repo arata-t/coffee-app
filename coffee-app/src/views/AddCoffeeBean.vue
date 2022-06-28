@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
@@ -58,6 +59,13 @@ export default {
   },
   methods: {
     async onSubmit() {
+      const coffee_id = this.coffee_beans.map(function (p) {
+        return p.coffee_id;
+      });
+      // 取得したcoffee_idから最大値を抽出
+      const upper_coffee_id = Math.max(...coffee_id)
+      this.coffee_bean.coffee_id = upper_coffee_id + 1;
+      // バリデーション
       if (this.$refs.checkForm.validate()){
         const coffee_bean = await this.$store.dispatch('addCoffeeBean', this.coffee_bean)
         this.$store.commit('setMessage', {
@@ -69,6 +77,12 @@ export default {
         },2000)
         this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id}}) 
       }
+    }
+  },
+  computed: {
+    ...mapState(["coffee_beans"]),
+    upper_coffee_id() {
+      return null;
     }
   }
 }
