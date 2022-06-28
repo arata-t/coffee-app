@@ -7,11 +7,28 @@
         label="名前"
         :rules="[required('BeansName')]"
       ></v-text-field>
-      <v-text-field
-        v-model="coffee_bean.purchase_date"
-        label="購入日"
-        :rules="[required('PurchaseDate')]"
-      ></v-text-field>
+      <!-- デフォルトだとid="app"なのでid=""え上書き -->
+      <v-app id="">
+        <v-menu>
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="coffee_bean.purchase_date"
+              label="購入日"
+              v-bind="attrs" 
+              v-on="on"   
+              readonly
+              :rules="[required('PurchaseDate')]"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="coffee_bean.purchase_date"
+            no-title
+            scrollable
+            @input="formatDate(picker)"
+          >
+          </v-date-picker>
+        </v-menu>
+      </v-app>
       <v-text-field
         v-model="coffee_bean.beans_origin"
         label="産地"
@@ -72,6 +89,13 @@ export default {
         this.$emit("emit", this.modal)
       }
     },
+    formatDate(date) {
+      if (!date) return null;
+      const [year, month, day] = date.split("-");
+      this.text = `${year}${month}${day}`;
+      this.menu = false;
+      return;
+    }
   }
 }
 </script>

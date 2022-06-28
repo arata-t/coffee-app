@@ -7,11 +7,28 @@
         label="名前"
         :rules="[required('BeansName')]"
       ></v-text-field>
-      <v-text-field
-        v-model="coffee_bean.purchase_date"
-        label="購入日"
-        :rules="[required('PurchaseDate')]"
-      ></v-text-field>
+      <!-- デフォルトだとid="app"なのでid=""え上書き -->
+      <v-app id="">
+        <v-menu>
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="coffee_bean.purchase_date"
+              label="購入日"
+              v-bind="attrs" 
+              v-on="on"   
+              readonly
+              :rules="[required('PurchaseDate')]"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="coffee_bean.purchase_date"
+            no-title
+            scrollable
+            @input="formatDate(picker)"
+          >
+          </v-date-picker>
+        </v-menu>
+      </v-app>
       <v-text-field
         v-model="coffee_bean.beans_origin"
         label="産地"
@@ -40,7 +57,6 @@
         v-model="coffee_bean.beans_comment"
         label="コメント"
       ></v-textarea>
-
       <v-btn class="mr-4" @click="onSubmit">Create</v-btn>
     </v-form>
   </div>
@@ -77,7 +93,14 @@ export default {
         },2000)
         this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id}}) 
       }
-    }
+    },
+    formatDate(date) {
+      if (!date) return null;
+      const [year, month, day] = date.split("-");
+      this.text = `${year}${month}${day}`;
+      this.menu = false;
+      return;
+    },
   },
   computed: {
     ...mapState(["coffee_beans"]),
