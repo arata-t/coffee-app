@@ -39,6 +39,7 @@ class V1::CoffeeBeansController < ApplicationController
       :coffee_acidity, 
       :price_yen, 
       :beans_comment,
+      :coffee_id,
       :created_at,
       :updated_at
     )

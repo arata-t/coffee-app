@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_225046) do
+ActiveRecord::Schema.define(version: 2022_06_27_215736) do
 
   create_table "coffee_beans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "beans_name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_225046) do
     t.string "beans_comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "coffee_id"
   end
 
 end
