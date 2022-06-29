@@ -1,12 +1,16 @@
 <template>
   <div>
     <h2>Add CoffeeBean</h2>
+
+    <!-- 名前 -->
     <v-form ref="checkForm">
       <v-text-field
         v-model="coffee_bean.beans_name"
         label="名前"
         :rules="[required('BeansName')]"
       ></v-text-field>
+
+      <!-- 購入日 -->
       <!-- デフォルトだとid="app"なのでid=""え上書き -->
       <v-app id="">
         <v-menu>
@@ -29,34 +33,69 @@
           </v-date-picker>
         </v-menu>
       </v-app>
+
+      <!-- 産地 -->
       <v-text-field
         v-model="coffee_bean.beans_origin"
         label="産地"
         :rules="[required('Origin')]"
       ></v-text-field>
-      <v-text-field
-        v-model="coffee_bean.coffee_aroma"
-        label="香り(1~5)"
-        :rules="[required('Aroma')]"
-      ></v-text-field>
-      <v-text-field
-        v-model="coffee_bean.bitter_taste"
-        label="苦味(1~5)"
-        :rules="[required('BitterTaste')]"
-      ></v-text-field>
-      <v-text-field
-        v-model="coffee_bean.coffee_acidity"
-        label="酸味(1~5)"
-        :rules="[required('Acidity')]"
-      ></v-text-field>
+
+      <!-- 香り -->
+      <v-app id="">
+        <v-row align="center">
+          <v-col>
+            <v-select
+              v-model="coffee_bean.coffee_aroma"
+              label="香り(1~5)"
+              :rules="[required('Aroma')]"
+              :items="items"
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-app>
+
+      <!-- 苦味 -->
+      <v-app id="">
+        <v-row align="center">
+          <v-col>
+            <v-select
+              v-model="coffee_bean.bitter_taste"
+              label="苦味(1~5)"
+              :rules="[required('BitterTaste')]"
+              :items="items"
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-app>
+
+      <!-- 酸味 -->
+      <v-app id="">
+        <v-row align="center">
+          <v-col>
+            <v-select
+              v-model="coffee_bean.coffee_acidity"
+              label="酸味(1~5)"
+              :rules="[required('Acidity')]"
+              :items="items"
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-app>
+
+      <!-- 値段 -->
       <v-text-field
         v-model="coffee_bean.price_yen"
         label="値段"  
       ></v-text-field>
+
+      <!-- コメント -->
       <v-textarea
         v-model="coffee_bean.beans_comment"
         label="コメント"
       ></v-textarea>
+
+
       <v-btn class="mr-4" @click="onSubmit">Create</v-btn>
     </v-form>
   </div>
@@ -70,7 +109,8 @@ export default {
       coffee_bean: {},
       required(propertyType) {
         return v => v && v.length > 0 || `You must input a ${propertyType}`
-      }
+      },
+      items: [1, 2, 3, 4, 5]
     }
   },
   methods: {

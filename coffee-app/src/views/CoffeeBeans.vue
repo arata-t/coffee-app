@@ -57,7 +57,7 @@ export default {
       async onSubmit() {
         const coffee_bean = await this.$store.dispatch('addCoffeeBean', this.coffee_bean) // 変更
         // 定したルーティング先のページに飛ぶ
-        this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id }}) // 追記
+        this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id }})
       },
       openModal(){
         this.modal = true
@@ -122,6 +122,7 @@ export default {
   height: 96px;
 }
 
+// v-date-pickerのcssをリセット
 .v-application--wrap{
   min-height: auto;
   background:#f5f5f5;
