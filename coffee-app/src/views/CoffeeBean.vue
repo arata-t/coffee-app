@@ -16,20 +16,42 @@
     <p>値段: {{ coffee_bean.price_yen }}</p>
     <p>コメント: {{ coffee_bean.beans_comment }}</p>
 
+    <!-- 編集ボタン -->
     <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Edit Coffee Bean</button>
     <span> ｜ </span>
-    <button type="button" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default" @click="deleteCoffeeBean(coffee_bean)">delete</button>
+    
+    <!-- 削除ボタン -->
+    <button type="button" @click="openDeleteDialog()" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default" style="text-transform: none">delete</button>
 
+    <!-- モーダル -->
     <transition name="modal">
       <div v-show="modal">
         <div class="fullOverlay" @click="closeModal"></div>
         <div class="window">
-          <!-- 子で'$emit'した値を'$event'で受け取る -->
+          <!-- 子で'$emit'し  た値を'$event'で受け取る -->
           <EditCoffeeBean @emit='modal = $event' />
         </div>
       </div>
     </transition>
   
+    <!-- 削除確認ダイアログ -->
+    <transition name="modal">
+      <div v-show="deleteDialog">
+        <div class="fullOverlay" @click="closeDeleteDialog"></div>
+        <div class="deleteDialog">
+          <v-card>
+          <v-card-title>
+            <p>本当に削除しますか？</p>
+          </v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <button type="button" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default" @click="deleteCoffeeBean(coffee_bean)">delete</button>
+          </v-card-actions>
+        </v-card>
+        </div>
+      </div>
+    </transition>
+
   </div>
 </template>
 
@@ -42,9 +64,20 @@ export default {
   data(){
     return {
       modal: false,
+      deleteDialog: false,
     }
   },
   methods:{
+    // 削除ダイアログを開く
+    openDeleteDialog(){
+      this.deleteDialog = true;
+    },
+
+    // 削除ダイアログを閉じる
+    closeDeleteDialog(){
+      this.deleteDialog = false;
+    },
+    // 削除処理
     deleteCoffeeBean(coffee_bean) {
       this.$store.dispatch('deleteCoffeeBean', coffee_bean)
       this.$store.commit('setMessage', {
@@ -56,9 +89,13 @@ export default {
       }, 2000)
       this.$router.push({ name: 'coffee_beans'})
     },
+
+    // 編集モーダルを開く
     openModal(){
       this.modal = true
     },
+
+    // 編集モーダルを閉じる
     closeModal(){
       this.modal = false,
       // 枠外を選択した際はデータベースから値を取得し、データバインドを更新する
