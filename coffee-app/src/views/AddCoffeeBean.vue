@@ -108,7 +108,8 @@ export default {
     return {
       coffee_bean: {},
       required(propertyType) {
-        return v => v && v.length > 0 || `You must input a ${propertyType}`
+        // 文字列と数値両方に対してバリデーションを行う
+        return v => (v && v.length > 0 || (v>=1 && v<=5)) || `You must input a ${propertyType}`
       },
       items: [1, 2, 3, 4, 5]
     }
