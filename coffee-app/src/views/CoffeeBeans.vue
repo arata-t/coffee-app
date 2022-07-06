@@ -3,6 +3,81 @@
     <Flash />
     <h1>Coffee Beans</h1>
     <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Add CoffeeBean</button>
+    <v-app >
+      <v-container fluid>
+        <v-data-iterator
+          :items="coffee_beans"
+          :items-per-page.sync="itemsPerPage"
+          :page.sync="page"
+          hide-default-footer
+        >
+          <!-- メインコンテンツ -->
+          <template v-slot:default="props">
+            <v-row>
+              <v-col 
+                v-for="item in props.items"
+                :key="item.id"
+                cols="12"
+                sm="4"
+                md="4"
+                lg="3"
+              >
+                <router-link :to="{name: 'show-coffee-bean', params: {id:item.id}}">
+                  <div id="cards">
+                    <v-card color="grey lighten-5
+">
+                      <!-- 名前 -->
+                      <v-card-title class="subheading-font-weight-bold">
+                        {{item.beans_name}}
+                      </v-card-title>
+                      <v-divider></v-divider>
+                      <v-list dense color="grey lighten-5">
+                        <!-- 香り -->
+                        <v-list-item>
+                          <v-list-item-content>香り：</v-list-item-content>
+                          <v-list-item-content>{{item.coffee_aroma}}</v-list-item-content>
+                        </v-list-item>
+                        <!-- 苦味 -->
+                        <v-list-item>
+                          <v-list-item-content>苦味：</v-list-item-content>
+                          <v-list-item-content>{{item.bitter_taste}}</v-list-item-content>
+                        </v-list-item>
+                        <!-- 酸味 -->
+                        <v-list-item>
+                          <v-list-item-content>酸味：</v-list-item-content>
+                          <v-list-item-content>{{item.coffee_acidity}}</v-list-item-content>
+                        </v-list-item>
+                        <!-- 値段 -->
+                        <v-list-item>
+                          <v-list-item-content>値段：</v-list-item-content>
+                          <v-list-item-content>¥{{item.price_yen}}</v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </v-card>
+                  </div>
+                </router-link>
+              </v-col>
+            </v-row>
+          </template>
+          <!-- フッター -->
+          <template v-slot:footer>
+            <v-row class="mt-2" align="center" justify="center">
+              <!-- 前のページ -->
+              <v-btn small fab color="normal" class="ml-1" @click="formerPage">
+                <v-icon>mdi-chevron-left</v-icon>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <span class="mr-4 grey--text">Page {{ page }} of {{ numberOfPages }}</span>
+              <v-spacer></v-spacer>
+              <!-- 次のページ -->
+              <v-btn small fab class="ml-1" @click="nextPage">
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-row>
+          </template>
+        </v-data-iterator>
+      </v-container>
+    </v-app>
     <v-row>
       <v-col cols="4">
         <transition name="modal">
@@ -15,19 +90,6 @@
             </div>  
           </div>
         </transition>
-      </v-col>
-      <v-col cols="8">
-        <table>
-          <tr>
-            <th>Date</th>
-            <th>BeansName</th>
-          </tr>
-          <tr v-for="coffee_bean in coffee_beans" :key="coffee_bean.id">
-            <td>{{ coffee_bean.purchase_date }}</td>
-            <td>{{ coffee_bean.beans_name }}</td>
-            <td><router-link :to="{name: 'show-coffee-bean', params: {id:coffee_bean.id}}">[ show ]</router-link></td>
-          </tr>
-        </table>
       </v-col>
     </v-row>
   </div>
@@ -45,12 +107,17 @@ export default {
     Flash
     },
     computed: {
-        ...mapState(["coffee_beans"])
+        ...mapState(["coffee_beans"]),
+        numberOfPages () {
+          return Math.ceil(this.coffee_beans.length / this.itemsPerPage)
+        },
     },
     data() {
         return {
             coffee_bean: {},
             modal: false,
+            itemsPerPage: 9, // 1ページ内に表示するカード数
+            page: 1, 
         };
     },
     methods: {
@@ -65,6 +132,12 @@ export default {
       closeModal(){
         this.modal = false
       },
+      formerPage(){
+        if (this.page - 1 >= 1) {this.page -= 1}
+      },
+      nextPage(){
+        if (this.page + 1 <= this.numberOfPages){this.page += 1}
+      }
     },
 
 }
@@ -128,8 +201,16 @@ export default {
 }
 
 // v-date-pickerのcssをリセット
-.v-application--wrap{
-  min-height: auto;
-  background:#f5f5f5;
+  .v-application--wrap{
+    min-height: auto;
+  }
+  .theme--light.v-application{
+    background: none;
+  }
+
+// ルーターリンクのアンダーラインを消す
+a {
+    text-decoration: none;
 }
+
 </style>

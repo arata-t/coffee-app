@@ -10,7 +10,6 @@
     <p>購入日: {{ coffee_bean.purchase_date }}</p>
     <p>産地: {{ coffee_bean.beans_origin }}</p>
     <p>香り: {{ coffee_bean.coffee_aroma }}</p>
-    <p>香り: {{ coffee_bean.bitter_taste }}</p>
     <p>苦味: {{ coffee_bean.bitter_taste }}</p>
     <p>酸味: {{ coffee_bean.coffee_acidity }}</p>
     <p>値段: {{ coffee_bean.price_yen }}</p>
