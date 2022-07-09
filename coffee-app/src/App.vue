@@ -11,6 +11,9 @@ export default {
   created() {
     this.$store.dispatch('fetchBeans')
   },
+  icons: {
+    iconfont: 'fa',
+  },
 }
 </script>
 

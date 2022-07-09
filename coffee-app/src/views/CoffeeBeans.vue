@@ -24,8 +24,7 @@
               >
                 <router-link :to="{name: 'show-coffee-bean', params: {id:item.id}}">
                   <div id="cards">
-                    <v-card color="grey lighten-5
-">
+                    <v-card color="grey lighten-5">
                       <!-- 名前 -->
                       <v-card-title class="subheading-font-weight-bold">
                         {{item.beans_name}}
