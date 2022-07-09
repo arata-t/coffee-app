@@ -1,28 +1,149 @@
 <template>
   <div>
     <Flash />
-    <div>
-        <router-link to="/coffee_beans" style="float  : left;">[Back]</router-link>
-    </div>
-    <br>
-    <p>番号: {{ coffee_bean.coffee_id }}</p>
-    <p>名前: {{ coffee_bean.beans_name }}</p>
-    <p>購入日: {{ coffee_bean.purchase_date }}</p>
-    <p>産地: {{ coffee_bean.beans_origin }}</p>
-    <p>香り: {{ coffee_bean.coffee_aroma }}</p>
-    <p>苦味: {{ coffee_bean.bitter_taste }}</p>
-    <p>酸味: {{ coffee_bean.coffee_acidity }}</p>
-    <p>値段: {{ coffee_bean.price_yen }}</p>
-    <p>コメント: {{ coffee_bean.beans_comment }}</p>
+    <v-app>
+      <v-card class="mx-auto" max-width="400" color="grey lighten-5">
 
-    <!-- 編集ボタン -->
-    <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Edit Coffee Bean</button>
-    <span> ｜ </span>
+        <!-- ヘッダー部分 -->
+        <v-toolbar color="brown lighten-1" dense elevation="0" dark>
+            <router-link to="/coffee_beans">
+              <v-btn icon>
+                <v-icon>mdi-arrow-left</v-icon>
+              </v-btn>
+            </router-link>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-heart</v-icon>
+          </v-btn>
     
-    <!-- 削除ボタン -->
-    <button type="button" @click="openDeleteDialog()" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default" style="text-transform: none">delete</button>
+          <v-btn icon @click="menu = !menu">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </v-toolbar>
 
-    <!-- モーダル -->
+        <!-- menuバー 常時非表示 -->
+        <v-navigation-drawer 
+        v-model="menu"
+        absolute
+        left
+        width="200"
+        temporary>
+          <v-list nav dense>
+            <v-list-item-group >
+              <v-list-item @click="openModal">
+                <v-list-item-title>編集</v-list-item-title>
+              </v-list-item>
+              <v-list-item  @click="openDeleteDialog">
+                <v-list-item-title >削除</v-list-item-title>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+
+        <!-- メインコンテンツ -->
+        <v-list-item two-line>
+          <v-list-item-content>
+            <v-list-item-title class="text-h4">
+              {{ coffee_bean.beans_name }}
+            </v-list-item-title>
+            <v-list-item-subtitle>最新更新：{{coffee_bean.updated_at}}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-card-text>
+          <v-row>
+            <v-col align=""
+              class="text-h6"
+              cols="5"
+            >
+              購入日：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              {{ coffee_bean.purchase_date }}
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              産地：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              {{ coffee_bean.beans_origin }}
+            </v-col>
+          </v-row>
+          <!-- 香り -->
+          <v-row> 
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              香り：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              <span v-for="n in coffee_bean.coffee_aroma" :key="n">
+                <v-icon>fa-coffee</v-icon>
+              </span>
+            </v-col>
+          </v-row>
+          <!-- 苦味 -->
+          <v-row>
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              苦味：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              <span v-for="n in coffee_bean.bitter_taste" :key="n">
+                <v-icon>fa-coffee</v-icon>
+              </span>
+            </v-col>
+          </v-row>
+          <!-- 酸味 -->
+          <v-row>
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              酸味：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              <span v-for="n in coffee_bean.coffee_acidity" :key="n">
+                <v-icon>fa-coffee</v-icon>
+              </span>
+            </v-col>
+          </v-row>
+          <!-- 値段 -->
+          <v-row>
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              値段：
+            </v-col>
+            <v-col cols="7" class="text-h6">
+              ¥{{ coffee_bean.price_yen }}
+            </v-col>
+          </v-row>
+          <!-- コメント -->
+          <v-row>
+            <v-col
+              class="text-h6"
+              cols="5"
+            >
+              コメント：
+            </v-col>
+            <v-col cols="12" class="text-h6">
+              {{ coffee_bean.beans_comment }}
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+      </v-card>
+    </v-app>
+
+    <!-- モーダル 常時非表示 -->
     <transition name="modal">
       <div v-show="modal">
         <div class="fullOverlay" @click="closeModal"></div>
@@ -33,7 +154,7 @@
       </div>
     </transition>
   
-    <!-- 削除確認ダイアログ -->
+    <!-- 削除確認ダイアログ 常時非表示 -->
     <transition name="modal">
       <div v-show="deleteDialog">
         <div class="fullOverlay" @click="closeDeleteDialog"></div>
@@ -64,12 +185,14 @@ export default {
     return {
       modal: false,
       deleteDialog: false,
+      menu: false,
     }
   },
   methods:{
     // 削除ダイアログを開く
     openDeleteDialog(){
       this.deleteDialog = true;
+      this.menu = false;
     },
 
     // 削除ダイアログを閉じる
@@ -91,7 +214,8 @@ export default {
 
     // 編集モーダルを開く
     openModal(){
-      this.modal = true
+      this.modal = true;
+      this.menu = false;
     },
 
     // 編集モーダルを閉じる
