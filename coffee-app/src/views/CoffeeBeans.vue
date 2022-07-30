@@ -1,9 +1,58 @@
 <template>
   <div>
-    <Flash />
-    <h1>Coffee Beans</h1>
-    <button type="button" @click="openModal" style="text-transform: none" class="mr-4 v-btn v-btn--is-elevated v-btn--has-bg theme--light v-size--default">Add CoffeeBean</button>
-    <v-app >
+    <!-- --------------------------------------------- -->
+    <v-app>
+        <v-card class="v-top-var">
+          <v-app-bar
+            absolute
+            dark
+            shrink-on-scroll
+            src="https://img.pretty-online.jp/wp-content/uploads/2021/04/24183349/life_coffeearea_eye.jpg"
+            scroll-target="#scrolling-techniques-2"
+          >
+            <template v-slot:img="{ props }">
+              <v-img
+                v-bind="props"
+                gradient="to top right, rgba(110,127,46,.27), rgba(122,71,25,.26)"
+              ></v-img>
+            </template>
+      
+            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      
+            <v-app-bar-title  >
+              <h1 class="font-weight-medium">Coffee Beans</h1>
+            </v-app-bar-title>
+      
+            <v-spacer></v-spacer>
+      
+      
+            <v-btn icon @click="openModal" >
+              <v-icon>mdi-seed-plus</v-icon>
+            </v-btn>
+      
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+
+          </v-app-bar>
+
+          <v-sheet
+            id="scrolling-techniques-2"
+            class="overflow-y-auto"
+          >
+            <v-container style="height: 750px; padding-top:150px ;">
+            
+
+
+
+
+
+
+
+
+
+<Flash />
+
       <v-container fluid>
         <v-data-iterator
           :items="coffee_beans"
@@ -76,7 +125,20 @@
           </template>
         </v-data-iterator>
       </v-container>
+
+            
+            
+            
+            
+            
+            
+            </v-container>
+
+          </v-sheet>
+        </v-card>
     </v-app>
+    <!-- -------------------------------------------   -->
+
     <v-row>
       <v-col cols="4">
         <transition name="modal">
@@ -115,7 +177,7 @@ export default {
         return {
             coffee_bean: {},
             modal: false,
-            itemsPerPage: 9, // 1ページ内に表示するカード数
+            itemsPerPage: 6, // 1ページ内に表示するカード数
             page: 1, 
         };
     },
@@ -210,6 +272,18 @@ export default {
 // ルーターリンクのアンダーラインを消す
 a {
     text-decoration: none;
+}
+
+// top-barの高さを指定
+.v-top-var {
+  z-index: 0;
+}
+
+.add-btn {
+  z-index: 1;
+  position: absolute;
+  top: 64px; 
+  right: 30px;  
 }
 
 </style>
