@@ -1,8 +1,10 @@
 <template>
   <div>
-    <!-- --------------------------------------------- -->
-    <v-app>
+    <Flash />
+    <v-app style=" margin-top: 0px;">
+        <!-- 全体を１つのカードとして扱う -->
         <v-card class="v-top-var">
+          <!-- header：上寄せにする -->
           <v-app-bar
             absolute
             dark
@@ -10,134 +12,118 @@
             src="https://img.pretty-online.jp/wp-content/uploads/2021/04/24183349/life_coffeearea_eye.jpg"
             scroll-target="#scrolling-techniques-2"
           >
+            <!-- 画像 -->
             <template v-slot:img="{ props }">
               <v-img
                 v-bind="props"
                 gradient="to top right, rgba(110,127,46,.27), rgba(122,71,25,.26)"
               ></v-img>
             </template>
-      
+
+            <!-- メニューバー：現状未実装 -->
             <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      
+
+            <!-- タイトル -->
             <v-app-bar-title  >
               <h1 class="font-weight-medium">Coffee Beans</h1>
             </v-app-bar-title>
       
             <v-spacer></v-spacer>
       
-      
+            <!-- 豆追加アイコン -->
             <v-btn icon @click="openModal" >
               <v-icon>mdi-seed-plus</v-icon>
             </v-btn>
       
+            <!-- オプションバー：現状未実装 -->
             <v-btn icon>
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
 
           </v-app-bar>
 
+          <!-- カードエリア -->
           <v-sheet
             id="scrolling-techniques-2"
             class="overflow-y-auto"
           >
-            <v-container style="height: 750px; padding-top:150px ;">
-            
-
-
-
-
-
-
-
-
-
-<Flash />
-
-      <v-container fluid>
-        <v-data-iterator
-          :items="coffee_beans"
-          :items-per-page.sync="itemsPerPage"
-          :page.sync="page"
-          hide-default-footer
-        >
-          <!-- メインコンテンツ -->
-          <template v-slot:default="props">
-            <v-row>
-              <v-col 
-                v-for="item in props.items"
-                :key="item.id"
-                cols="12"
-                sm="4"
-                md="4"
-                lg="3"
+            <v-container fluid style="height: 750px; padding-top:150px ;">
+            <!-- 降順にする -->
+              <v-data-iterator
+                :items="coffee_beans.slice().reverse()"
+                :items-per-page.sync="itemsPerPage"
+                :page.sync="page"
+                hide-default-footer
               >
-                <router-link :to="{name: 'show-coffee-bean', params: {id:item.id}}">
-                  <div id="cards">
-                    <v-card color="grey lighten-5">
-                      <!-- 名前 -->
-                      <v-card-title class="subheading-font-weight-bold">
-                        {{item.beans_name}}
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <v-list dense color="grey lighten-5">
-                        <!-- 香り -->
-                        <v-list-item>
-                          <v-list-item-content>香り：</v-list-item-content>
-                          <v-list-item-content>{{item.coffee_aroma}}</v-list-item-content>
-                        </v-list-item>
-                        <!-- 苦味 -->
-                        <v-list-item>
-                          <v-list-item-content>苦味：</v-list-item-content>
-                          <v-list-item-content>{{item.bitter_taste}}</v-list-item-content>
-                        </v-list-item>
-                        <!-- 酸味 -->
-                        <v-list-item>
-                          <v-list-item-content>酸味：</v-list-item-content>
-                          <v-list-item-content>{{item.coffee_acidity}}</v-list-item-content>
-                        </v-list-item>
-                        <!-- 値段 -->
-                        <v-list-item>
-                          <v-list-item-content>値段：</v-list-item-content>
-                          <v-list-item-content>¥{{item.price_yen}}</v-list-item-content>
-                        </v-list-item>
-                      </v-list>
-                    </v-card>
-                  </div>
-                </router-link>
-              </v-col>
-            </v-row>
-          </template>
-          <!-- フッター -->
-          <template v-slot:footer>
-            <v-row class="mt-2" align="center" justify="center">
-              <!-- 前のページ -->
-              <v-btn small fab color="normal" class="ml-1" @click="formerPage">
-                <v-icon>mdi-chevron-left</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <span class="mr-4 grey--text">Page {{ page }} of {{ numberOfPages }}</span>
-              <v-spacer></v-spacer>
-              <!-- 次のページ -->
-              <v-btn small fab class="ml-1" @click="nextPage">
-                <v-icon>mdi-chevron-right</v-icon>
-              </v-btn>
-            </v-row>
-          </template>
-        </v-data-iterator>
-      </v-container>
-
-            
-            
-            
-            
-            
-            
+                <!-- メインコンテンツ -->
+                <template v-slot:default="props">
+                  <v-row>
+                    <v-col 
+                      v-for="item in props.items"
+                      :key="item.id"
+                      cols="12"
+                      sm="4"
+                      md="4"
+                      lg="3"
+                    >
+                      <router-link :to="{name: 'show-coffee-bean', params: {id:item.id}}">
+                        <div id="cards">
+                          <v-card color="grey lighten-5">
+                            <!-- 名前 -->
+                            <v-card-title class="subheading-font-weight-bold">
+                              {{item.beans_name}}
+                            </v-card-title>
+                            <v-divider></v-divider>
+                            <v-list dense color="grey lighten-5">
+                              <!-- 香り -->
+                              <v-list-item>
+                                <v-list-item-content>香り：</v-list-item-content>
+                                <v-list-item-content>{{item.coffee_aroma}}</v-list-item-content>
+                              </v-list-item>
+                              <!-- 苦味 -->
+                              <v-list-item>
+                                <v-list-item-content>苦味：</v-list-item-content>
+                                <v-list-item-content>{{item.bitter_taste}}</v-list-item-content>
+                              </v-list-item>
+                              <!-- 酸味 -->
+                              <v-list-item>
+                                <v-list-item-content>酸味：</v-list-item-content>
+                                <v-list-item-content>{{item.coffee_acidity}}</v-list-item-content>
+                              </v-list-item>
+                              <!-- 値段 -->
+                              <v-list-item>
+                                <v-list-item-content>値段：</v-list-item-content>
+                                <v-list-item-content>¥{{item.price_yen}}</v-list-item-content>
+                              </v-list-item>
+                            </v-list>
+                          </v-card>
+                        </div>
+                      </router-link>
+                    </v-col>
+                  </v-row>
+                </template>
+                <!-- フッター -->
+                <template v-slot:footer>
+                  <v-row class="mt-2" align="center" justify="center">
+                    <!-- 前のページ -->
+                    <v-btn small fab color="normal" class="ml-1" @click="formerPage">
+                      <v-icon>mdi-chevron-left</v-icon>
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <span class="mr-4 grey--text">Page {{ page }} of {{ numberOfPages }}</span>
+                    <v-spacer></v-spacer>
+                    <!-- 次のページ -->
+                    <v-btn small fab class="ml-1" @click="nextPage">
+                      <v-icon>mdi-chevron-right</v-icon>
+                    </v-btn>
+                  </v-row>
+                </template>
+              </v-data-iterator>
             </v-container>
 
           </v-sheet>
         </v-card>
     </v-app>
-    <!-- -------------------------------------------   -->
 
     <v-row>
       <v-col cols="4">
