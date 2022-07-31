@@ -95,8 +95,11 @@
         label="コメント"
       ></v-textarea>
 
-
+      <!-- 作成ボタン -->
       <v-btn class="mr-4" @click="onSubmit">Create</v-btn>
+
+      <!-- キャンセルボタン -->
+      <v-btn class="mr-4" @click="closeModal">Cancel</v-btn>
     </v-form>
   </div>
 </template>
@@ -142,6 +145,11 @@ export default {
       this.menu = false;
       return;
     },
+
+    // $emitで親コンポーネントのイベントを発火し、モーダルを閉じる
+    closeModal(){
+      this.$emit('closeModal')
+    }
   },
   computed: {
     ...mapState(["coffee_beans"]),
@@ -151,3 +159,11 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+// ボタン間隔の調整
+.mr-4{
+  padding: 0 20px;
+  margin: 0 30px;
+}
+</style>

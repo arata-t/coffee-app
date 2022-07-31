@@ -2,7 +2,7 @@
   <div>
     <Flash />
     <v-app>
-      <v-card class="mx-auto" max-width="400" color="grey lighten-5">
+      <v-card max-width="400" color="grey lighten-5">
 
         <!-- ヘッダー部分 -->
         <v-toolbar color="brown lighten-1" dense elevation="0" dark>
