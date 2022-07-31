@@ -4,7 +4,7 @@
     <v-app style=" margin-top: 0px;">
         <!-- 全体を１つのカードとして扱う -->
         <v-card class="v-top-var">
-          <!-- header：上寄せにする -->
+          <!-- ヘッダー：上寄せにする -->
           <v-app-bar
             absolute
             dark
@@ -42,12 +42,12 @@
 
           </v-app-bar>
 
-          <!-- カードエリア -->
+          <!-- カードエリア(メインコンテンツ) -->
           <v-sheet
             id="scrolling-techniques-2"
             class="overflow-y-auto"
           >
-            <v-container fluid style="height: 750px; padding-top:150px ;">
+            <v-container fluid style="height: 680px; padding-top:150px ;">
             <!-- 降順にする -->
               <v-data-iterator
                 :items="coffee_beans.slice().reverse()"
@@ -102,26 +102,37 @@
                     </v-col>
                   </v-row>
                 </template>
-                <!-- フッター -->
-                <template v-slot:footer>
-                  <v-row class="mt-2" align="center" justify="center">
-                    <!-- 前のページ -->
-                    <v-btn small fab color="normal" class="ml-1" @click="formerPage">
-                      <v-icon>mdi-chevron-left</v-icon>
-                    </v-btn>
-                    <v-spacer></v-spacer>
-                    <span class="mr-4 grey--text">Page {{ page }} of {{ numberOfPages }}</span>
-                    <v-spacer></v-spacer>
-                    <!-- 次のページ -->
-                    <v-btn small fab class="ml-1" @click="nextPage">
-                      <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn>
-                  </v-row>
-                </template>
               </v-data-iterator>
             </v-container>
-
           </v-sheet>
+
+          <!-- フッター -->
+          <v-bottom-navigation
+            v-model="value"
+            background-color="brown lighten-1"  
+            dark
+          >
+            <!-- 前のページ -->
+            <v-btn  small fab color="normal" class="ml-1" @click="formerPage">
+              <span>Previous</span>
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+        
+            <v-spacer></v-spacer>
+
+            <!-- ページ番号 -->
+            <v-button style="margin-top: 20px; font-size: 14px;">
+              <span>Page{{ page }} / {{ numberOfPages }}</span>
+            </v-button>
+
+            <v-spacer></v-spacer>
+
+            <!-- 次のページ -->
+            <v-btn small fab class="ml-1" @click="nextPage">
+              <span>Next</span>
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-bottom-navigation>
         </v-card>
     </v-app>
 
