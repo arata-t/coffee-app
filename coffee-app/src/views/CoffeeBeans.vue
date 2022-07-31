@@ -6,9 +6,8 @@
         <v-card class="v-top-var">
           <!-- ヘッダー：上寄せにする -->
           <v-app-bar
-            absolute
             dark
-            shrink-on-scroll
+            prominent
             src="https://img.pretty-online.jp/wp-content/uploads/2021/04/24183349/life_coffeearea_eye.jpg"
             scroll-target="#scrolling-techniques-2"
           >
@@ -25,7 +24,7 @@
 
             <!-- タイトル -->
             <v-app-bar-title  >
-              <h1 class="font-weight-medium">Coffee Beans</h1>
+              <v-toolbar-title>Coffee Beans</v-toolbar-title>
             </v-app-bar-title>
       
             <v-spacer></v-spacer>
@@ -47,7 +46,7 @@
             id="scrolling-techniques-2"
             class="overflow-y-auto"
           >
-            <v-container fluid style="height: 680px; padding-top:150px ;">
+            <v-container fluid>
             <!-- 降順にする -->
               <v-data-iterator
                 :items="coffee_beans.slice().reverse()"
@@ -57,7 +56,7 @@
               >
                 <!-- メインコンテンツ -->
                 <template v-slot:default="props">
-                  <v-row>
+                  <v-row style="padding-top: 10px;">
                     <v-col 
                       v-for="item in props.items"
                       :key="item.id"
@@ -144,7 +143,8 @@
             <div class="fullOverlay" @click="closeModal">
             </div>
             <div class="window">
-              <AddCoffeeBean />
+              <!-- emitされたイベントを受け取り、モーダルをクローズする -->
+              <AddCoffeeBean v-on:closeModal="closeModal"></AddCoffeeBean>
             </div>  
           </div>
         </transition>
@@ -221,6 +221,8 @@ export default {
   background:#f5f5f5;
   padding: 20px 10px;
   border: solid #707070;
+  height: 550px;
+  overflow: auto;
 }
 /* オーバーレイ*/
 .fullOverlay{
@@ -276,11 +278,15 @@ a {
   z-index: 0;
 }
 
-.add-btn {
-  z-index: 1;
-  position: absolute;
-  top: 64px; 
-  right: 30px;  
+// カードのタイトル欄の調整
+.subheading-font-weight-bold{
+  padding: 5px 12px;
 }
 
+// スマホ用レスポンシブ
+@media screen and (max-height: 700px) {
+  #scrolling-techniques-2{
+    max-height:450px;
+  }
+}
 </style>
