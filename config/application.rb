@@ -33,5 +33,7 @@ module CoffeeApp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    # 以下、RailsアプリケーションのpublicディレクトリがWebサーバーから直接提供されるようになります。
+    config.public_file_server.enabled = true
   end
 end

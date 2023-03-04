@@ -18,8 +18,8 @@
             <v-text-field
               v-model="coffee_bean.purchase_date"
               label="購入日"
-              v-bind="attrs" 
-              v-on="on"   
+              v-bind="attrs"
+              v-on="on"
               readonly
               :rules="[required('PurchaseDate')]"
             ></v-text-field>
@@ -86,7 +86,7 @@
       <!-- 値段 -->
       <v-text-field
         v-model="coffee_bean.price_yen"
-        label="値段"  
+        label="値段"
       ></v-text-field>
 
       <!-- コメント -->
@@ -114,7 +114,8 @@ export default {
         // 文字列と数値両方に対してバリデーションを行う
         return v => (v && v.length > 0 || (v>=1 && v<=5)) || `You must input a ${propertyType}`
       },
-      items: [1, 2, 3, 4, 5]
+      items: [1, 2, 3, 4, 5],
+      picker: null
     }
   },
   methods: {
@@ -135,7 +136,7 @@ export default {
         setTimeout(() => {
           this.$store.commit('setMessage', {})
         },2000)
-        this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id}}) 
+        this.$router.push({ name: 'show-coffee-bean', params: { id: coffee_bean.id}})
       }
     },
     formatDate(date) {

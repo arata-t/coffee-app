@@ -26,14 +26,14 @@
             <v-app-bar-title  >
               <v-toolbar-title>Coffee Beans</v-toolbar-title>
             </v-app-bar-title>
-      
+
             <v-spacer></v-spacer>
-      
+
             <!-- 豆追加アイコン -->
             <v-btn icon @click="openModal" >
               <v-icon>mdi-seed-plus</v-icon>
             </v-btn>
-      
+
             <!-- オプションバー：現状未実装 -->
             <v-btn icon>
               <v-icon>mdi-dots-vertical</v-icon>
@@ -57,7 +57,7 @@
                 <!-- メインコンテンツ -->
                 <template v-slot:default="props">
                   <v-row style="padding-top: 10px;">
-                    <v-col 
+                    <v-col
                       v-for="item in props.items"
                       :key="item.id"
                       cols="12"
@@ -107,8 +107,7 @@
 
           <!-- フッター -->
           <v-bottom-navigation
-            v-model="value"
-            background-color="brown lighten-1"  
+            background-color="brown lighten-1"
             dark
           >
             <!-- 前のページ -->
@@ -116,13 +115,13 @@
               <span>Previous</span>
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-        
+
             <v-spacer></v-spacer>
 
             <!-- ページ番号 -->
-            <v-button style="margin-top: 20px; font-size: 14px;">
+            <div style="margin-top: 20px; font-size: 14px;">
               <span>Page{{ page }} / {{ numberOfPages }}</span>
-            </v-button>
+            </div>
 
             <v-spacer></v-spacer>
 
@@ -145,7 +144,7 @@
             <div class="window">
               <!-- emitされたイベントを受け取り、モーダルをクローズする -->
               <AddCoffeeBean v-on:closeModal="closeModal"></AddCoffeeBean>
-            </div>  
+            </div>
           </div>
         </transition>
       </v-col>
@@ -175,7 +174,7 @@ export default {
             coffee_bean: {},
             modal: false,
             itemsPerPage: 6, // 1ページ内に表示するカード数
-            page: 1, 
+            page: 1,
         };
     },
     methods: {
@@ -199,7 +198,7 @@ export default {
     },
 
 }
-</script> 
+</script>
 
 <style lang="stylus">
 
