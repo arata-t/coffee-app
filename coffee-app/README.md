@@ -22,3 +22,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 注意
+yarn build したら、ルートディレクトリのpublicにdstファイルがコピーされるようになっている。
+yarn serve ではrails -s でサーバーが起動していること。また、DBはローカルのMySQLを参照している。
