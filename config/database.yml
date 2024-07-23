@@ -15,7 +15,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV['COFFEE_APP_DATABASE_USERNAME'] %>
   password: <%= ENV['COFFEE_APP_DATABASE_PASSWORD'] %>
-  socket: /tmp/mysql.sock
+  socket: <%= ENV['SOCKET_PATH'] %>
 
 development:
   <<: *default
