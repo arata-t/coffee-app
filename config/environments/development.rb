@@ -49,4 +49,8 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # railsがx-server上のarata-t.comで許可するホストの追加
+  config.hosts << "arata-t.com"
+
 end
