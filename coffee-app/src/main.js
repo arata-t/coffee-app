@@ -1,4 +1,5 @@
-import '@fortawesome/fontawesome-free/css/all.css' 
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@mdi/font/css/materialdesignicons.css';
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
